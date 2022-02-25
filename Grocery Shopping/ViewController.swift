@@ -8,33 +8,33 @@
 import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    let logo = UIImageView(image: UIImage(named: "AppLogo"))
+
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var bgImageView: UIImageView!
     let bgView = UIImageView(image: UIImage(named: "background"))
+    var myIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpNavigationUI()
-        
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundView = bgView
-        var layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        setUpUI()
+    }
+    
+    /* Setting up UI, Navigation layout*/
+    func setUpUI() {
+        navigationItem.titleView = UIImageView(image: UIImage(named: "AppLogo"))
+        bgImageView.image = UIImage(named: "background")
+        let layout =  self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: 125, height: 125)
+        layout.sectionInset = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
     }
     
-    
-    func setUpNavigationUI() {
-        navigationItem.titleView = logo
-    }
-    
-    // Populatiung collection view
+    /* Populatiung collection view */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return navItems.count
         
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "navItemCollectionViewCell", for: indexPath) as? navItemCollectionViewCell {
             
@@ -45,9 +45,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return UICollectionViewCell()
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: 125, height: 125)
-//    }
+    /* On selection of a cell */
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        myIndex = indexPath.row
+        self.performSegue(withIdentifier: "goToNext", sender: self)
+        
+    }
+    
+    /* Passing data through segue */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToNext" {
+            if let nextVC = segue.destination as? groceryListTVController {
+                nextVC.passedIndex = myIndex
+                nextVC.title = navItems[myIndex].label
+            }
+        }
+    }
+    
+    
     
 }
 
