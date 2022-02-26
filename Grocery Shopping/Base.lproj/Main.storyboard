@@ -87,7 +87,8 @@
                     <connections>
                         <outlet property="bgImageView" destination="0Sc-cN-BHS" id="5wO-FM-jui"/>
                         <outlet property="collectionView" destination="jiX-Zk-6qp" id="qqF-mi-ukI"/>
-                        <segue destination="jZh-Lf-2vI" kind="show" identifier="goToNext" id="iD1-9h-vXl"/>
+                        <segue destination="jZh-Lf-2vI" kind="show" identifier="goToGrocery" id="iD1-9h-vXl"/>
+                        <segue destination="752-X7-n8O" kind="show" identifier="goToRecent" id="GEr-Pa-vdE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -112,6 +113,35 @@
             </objects>
             <point key="canvasLocation" x="34.782608695652179" y="97.767857142857139"/>
         </scene>
+        <!--RecentTVC-->
+        <scene sceneID="nsN-Qn-Uoi">
+            <objects>
+                <tableViewController id="752-X7-n8O" customClass="RecentTVC" customModule="Grocery_Shopping" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="uNz-nx-EsG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="mEN-m3-1z8">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mEN-m3-1z8" id="eO6-Ai-pzl">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="752-X7-n8O" id="FjB-ro-vqw"/>
+                            <outlet property="delegate" destination="752-X7-n8O" id="sdr-0W-Wfu"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="lMm-C0-qhz"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q0T-Ow-nSc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1836" y="98"/>
+        </scene>
         <!--Grocery ListTV Controller-->
         <scene sceneID="n5F-t2-GgF">
             <objects>
@@ -135,11 +165,13 @@
                             <outlet property="delegate" destination="jZh-Lf-2vI" id="aFT-Md-yXy"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="MDf-6N-nPY"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TeC-ak-ABI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1190" y="-575"/>
+            <point key="canvasLocation" x="1836" y="-583"/>
         </scene>
     </scenes>
     <resources>

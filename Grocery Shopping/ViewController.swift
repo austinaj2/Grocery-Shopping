@@ -49,14 +49,26 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         myIndex = indexPath.row
-        self.performSegue(withIdentifier: "goToNext", sender: self)
-        
+        let direction = navItems[indexPath.row].label
+        if direction == "Grocery" {
+            self.performSegue(withIdentifier: "goToGrocery", sender: self)
+        }
+        if direction == "Recent Orders" {
+            self.performSegue(withIdentifier: "goToRecent", sender: self)
+        }
+
     }
     
     /* Passing data through segue */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToNext" {
+        if segue.identifier == "goToGrocery" {
             if let nextVC = segue.destination as? groceryListTVController {
+                nextVC.passedIndex = myIndex
+                nextVC.title = navItems[myIndex].label
+            }
+        }
+        if segue.identifier == "goToRecent" {
+            if let nextVC = segue.destination as? RecentTVC {
                 nextVC.passedIndex = myIndex
                 nextVC.title = navItems[myIndex].label
             }
