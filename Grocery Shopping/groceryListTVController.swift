@@ -22,9 +22,7 @@ class groceryListTVController: UITableViewController {
 
     func setUpUI() {
         cartBtn.setImage(cartImg, for: .normal)
-        cartBtn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        cartBtn.sizeToFit()
-        navigationItem.title
+        cartBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartBtn)
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
