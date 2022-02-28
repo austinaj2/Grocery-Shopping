@@ -49,33 +49,43 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         myIndex = indexPath.row
-        let direction = navItems[indexPath.row].label
-        if direction == "Grocery" {
-            self.performSegue(withIdentifier: "goToGrocery", sender: self)
-        }
-        if direction == "Recent Orders" {
-            self.performSegue(withIdentifier: "goToRecent", sender: self)
-        }
+        self.performSegue(withIdentifier: "showDetails", sender: self)
 
     }
     
     /* Passing data through segue */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToGrocery" {
-            if let nextVC = segue.destination as? groceryListTVController {
-                nextVC.passedIndex = myIndex
-                nextVC.title = navItems[myIndex].label
-            }
-        }
-        if segue.identifier == "goToRecent" {
-            if let nextVC = segue.destination as? RecentTVC {
+        if segue.identifier == "showDetails" {
+            if let nextVC = segue.destination as? DetailController {
                 nextVC.passedIndex = myIndex
                 nextVC.title = navItems[myIndex].label
             }
         }
     }
-    
-    
-    
 }
+
+/* Setting up class for categories */
+class navItem {
+    var img: UIImage
+    var label: String
+    
+    init(img: UIImage, label: String) {
+        self.img = img
+        self.label = label
+    }
+}
+
+/* Initializing category items */
+let navItems: [navItem] = [
+    navItem(img: UIImage(named: "recent")!, label: "Recent Orders"),
+    navItem(img: UIImage(named: "cart")!, label: "Cart"),
+    navItem(img: UIImage(named: "grocery")!, label: "Grocery"),
+    navItem(img: UIImage(named: "clothing")!, label: "Clothing"),
+    navItem(img: UIImage(named: "movies")!, label: "Movies"),
+    navItem(img: UIImage(named: "garden")!, label: "Garden"),
+    navItem(img: UIImage(named: "elec")!, label: "Electronics"),
+    navItem(img: UIImage(named: "books")!, label: "Books"),
+    navItem(img: UIImage(named: "appliances")!, label: "Appliances"),
+    navItem(img: UIImage(named: "toys")!, label: "Toys")
+]
 
