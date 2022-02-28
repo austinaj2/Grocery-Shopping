@@ -19,7 +19,6 @@
 		91870F8127C838FF00A0B942 /* Grocery_ShoppingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91870F8027C838FF00A0B942 /* Grocery_ShoppingUITests.swift */; };
 		91870F8327C838FF00A0B942 /* Grocery_ShoppingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91870F8227C838FF00A0B942 /* Grocery_ShoppingUITestsLaunchTests.swift */; };
 		91870F9027C8554200A0B942 /* navItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91870F8F27C8554200A0B942 /* navItemCollectionViewCell.swift */; };
-		91870F9227C858AE00A0B942 /* navItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91870F9127C858AE00A0B942 /* navItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +55,6 @@
 		91870F8027C838FF00A0B942 /* Grocery_ShoppingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery_ShoppingUITests.swift; sourceTree = "<group>"; };
 		91870F8227C838FF00A0B942 /* Grocery_ShoppingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery_ShoppingUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		91870F8F27C8554200A0B942 /* navItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = navItemCollectionViewCell.swift; sourceTree = "<group>"; };
-		91870F9127C858AE00A0B942 /* navItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = navItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +109,6 @@
 				91870F6127C838FE00A0B942 /* SceneDelegate.swift */,
 				91870F8F27C8554200A0B942 /* navItemCollectionViewCell.swift */,
 				91870F6327C838FE00A0B942 /* ViewController.swift */,
-				91870F9127C858AE00A0B942 /* navItem.swift */,
 				915FB97827CC859600601301 /* groceryItemCell.swift */,
 				91870F6527C838FE00A0B942 /* Main.storyboard */,
 				8478C1BB27C8A1D200AA889B /* DetailController.swift */,
@@ -273,7 +270,6 @@
 				91870F6427C838FE00A0B942 /* ViewController.swift in Sources */,
 				91870F9027C8554200A0B942 /* navItemCollectionViewCell.swift in Sources */,
 				915FB97927CC859600601301 /* groceryItemCell.swift in Sources */,
-				91870F9227C858AE00A0B942 /* navItem.swift in Sources */,
 				91870F6027C838FE00A0B942 /* AppDelegate.swift in Sources */,
 				91870F6227C838FE00A0B942 /* SceneDelegate.swift in Sources */,
 				8478C1BC27C8A1D200AA889B /* DetailController.swift in Sources */,
