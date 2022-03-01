@@ -33,14 +33,32 @@ class DetailController: UITableViewController {
         cartButton.setImage(UIImage(named: "navCart")?.withRenderingMode(.alwaysOriginal), for: .normal)
         navigationItem.setRightBarButton(UIBarButtonItem(customView: cartButton), animated: true)
     }
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if self.title == "Grocery" {
+            return groceries.count
+        }
+        if self.title == "Cart" {
+            return myCart.count
+        }
         return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if self.title == "Grocery" {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "groceryItemCell", for: indexPath) as? groceryItemCell {
+                
+                cell.cellSetup(with: groceries[indexPath.row])
+                return cell
+            }
+        }
+        if self.title == "Cart" {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "cartItemCell", for: indexPath) as? cartItemCell {
+                cell.cellSetup(with: myCart[indexPath.row])
+                return cell
+            }
+        }
+        return UITableViewCell()
     }
 }
 
@@ -60,6 +78,18 @@ class groceryItem {
     }
 }
 
+class cartItem {
+    var label: String
+    var subtotal: Double
+    var quantity: Int
+    
+    
+    init(label: String, subtotal: Double, quantity: Int) {
+        self.label = label
+        self.subtotal = subtotal
+        self.quantity = quantity
+    }
+}
 /* Initializing items */
 
 let groceries: [groceryItem] = [
@@ -71,4 +101,8 @@ let groceries: [groceryItem] = [
     groceryItem(img: UIImage(named: "bread")!, label: "Bread", price: 2.32, descrip: "Whole-wheat."),
     groceryItem(img: UIImage(named: "milk")!, label: "Milk", price: 4.99, descrip: "One box, organic."),
     groceryItem(img: UIImage(named: "eggs")!, label: "Eggs", price: 0.98, descrip: "By the dozen."),
+]
+
+let myCart: [cartItem] = [
+    cartItem(label: "Tomatoes, per lb.", subtotal: 2.49, quantity: 2)
 ]

@@ -13,6 +13,8 @@ class groceryItemCell: UITableViewCell {
     @IBOutlet weak var gDescrip: UILabel!
     @IBOutlet weak var groceryName: UILabel!
     @IBOutlet weak var gImage: UIImageView!
+    @IBOutlet weak var addButton: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8478C1BC27C8A1D200AA889B /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C1BB27C8A1D200AA889B /* DetailController.swift */; };
 		915FB97927CC859600601301 /* groceryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FB97827CC859600601301 /* groceryItemCell.swift */; };
+		915FB97B27CDC36D00601301 /* cartItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FB97A27CDC36D00601301 /* cartItemCell.swift */; };
 		91870F6027C838FE00A0B942 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91870F5F27C838FE00A0B942 /* AppDelegate.swift */; };
 		91870F6227C838FE00A0B942 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91870F6127C838FE00A0B942 /* SceneDelegate.swift */; };
 		91870F6427C838FE00A0B942 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91870F6327C838FE00A0B942 /* ViewController.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		8478C1BB27C8A1D200AA889B /* DetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
 		915FB97827CC859600601301 /* groceryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groceryItemCell.swift; sourceTree = "<group>"; };
+		915FB97A27CDC36D00601301 /* cartItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cartItemCell.swift; sourceTree = "<group>"; };
 		91870F5C27C838FE00A0B942 /* Grocery Shopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery Shopping.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91870F5F27C838FE00A0B942 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91870F6127C838FE00A0B942 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				91870F6127C838FE00A0B942 /* SceneDelegate.swift */,
 				91870F8F27C8554200A0B942 /* navItemCollectionViewCell.swift */,
 				91870F6327C838FE00A0B942 /* ViewController.swift */,
+				915FB97A27CDC36D00601301 /* cartItemCell.swift */,
 				915FB97827CC859600601301 /* groceryItemCell.swift */,
 				91870F6527C838FE00A0B942 /* Main.storyboard */,
 				8478C1BB27C8A1D200AA889B /* DetailController.swift */,
@@ -273,6 +276,7 @@
 				91870F6027C838FE00A0B942 /* AppDelegate.swift in Sources */,
 				91870F6227C838FE00A0B942 /* SceneDelegate.swift in Sources */,
 				8478C1BC27C8A1D200AA889B /* DetailController.swift in Sources */,
+				915FB97B27CDC36D00601301 /* cartItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
