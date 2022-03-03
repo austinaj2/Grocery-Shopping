@@ -13,6 +13,8 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var decreaseBtn: UIButton!
     var titles: [String] = []
     var sectionCount: [Int] = []
+    var sectionArr: [cartItem] = []
+    var sectionAofA: [[cartItem]] = []
     
     @IBOutlet weak var tableView: UITableView!
     var passedIndex = Int()
@@ -56,8 +58,11 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
             for i in myCart {
                 if i.category == x {
                     count+=1
+                    sectionArr.append(i)
                 }
             }
+            sectionAofA.append(sectionArr)
+            sectionArr = []
             sectionCount.append(count)
             count = 0
         }
@@ -65,7 +70,7 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cartItemCell", for: indexPath) as? cartItemCell {
-            cell.cellSetup(with: myCart[indexPath.row])
+            cell.cellSetup(with: sectionAofA[indexPath.section][indexPath.row])
             return cell
         }
         return UITableViewCell()
@@ -91,5 +96,6 @@ let myCart: [cartItem] = [
     cartItem(category: "Grocery", label: "Tomatoes, per lb.", subtotal: 2.49, quantity: 2),
      cartItem(category: "Grocery", label: "Bananas, per lb.", subtotal: 0.49, quantity: 2),
      cartItem(category: "Grocery", label: "Milk", subtotal: 4.99, quantity: 1),
-    cartItem(category: "Movies", label: "Milk", subtotal: 4.99, quantity: 1)
+    cartItem(category: "Movies", label: "Milk", subtotal: 4.99, quantity: 1),
+    cartItem(category: "Grocery", label: "Broccoli", subtotal: 1.99, quantity: 1)
 ]

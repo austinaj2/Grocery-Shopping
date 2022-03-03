@@ -35,7 +35,6 @@ class cartItemCell: UITableViewCell {
         cartLabel.text = c.label
         subtotal.text = "$\(c.subtotal)"
         quantity.text = "\(c.quantity)"
-        cartLabel.layer.cornerRadius = 16
     }
 
 }
