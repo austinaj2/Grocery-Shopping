@@ -26,11 +26,14 @@ class groceryItemCell: UITableViewCell {
 
     }
     
+    
+    
+    
     func cellSetup(with grocery: groceryItem) {
         gPrice.text = "$\(grocery.price)"
         gDescrip.text = grocery.descrip
         groceryName.text = grocery.label
         gImage.image = grocery.img
     }
-
+    
 }

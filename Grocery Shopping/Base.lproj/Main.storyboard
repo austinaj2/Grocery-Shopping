@@ -98,7 +98,7 @@
         <!--Cart Controller-->
         <scene sceneID="mLW-M6-wrr">
             <objects>
-                <viewController id="0Qp-1c-qhO" customClass="CartController" customModule="Grocery_Shopping" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CartController" id="0Qp-1c-qhO" customClass="CartController" customModule="Grocery_Shopping" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iFQ-1e-iwX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

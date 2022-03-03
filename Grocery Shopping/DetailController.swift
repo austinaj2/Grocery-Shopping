@@ -10,7 +10,7 @@ import UIKit
 class DetailController: UITableViewController {
     
     @IBOutlet weak var cartBarButton: UIBarButtonItem!
-    let cartButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    // let cartButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     var passedIndex = Int()
     
     
@@ -20,10 +20,25 @@ class DetailController: UITableViewController {
     }
 
     func setUpGroceryUI() {
+        let cartButton = UIButton(type: .custom)
         cartButton.setImage(UIImage(named: "navCart")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        cartButton.addTarget(self, action: #selector(goToCart), for: .touchUpInside)
+        cartButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        var cartLabel = myCart.count
+        let labelHolder = UILabel(frame: CGRect(x: 5, y: 0, width: 40, height: 40))
+        labelHolder.text = "\(cartLabel)"
+        labelHolder.textAlignment = .center
+        labelHolder.backgroundColor = UIColor.clear
+        labelHolder.textColor = UIColor.black
+        cartButton.addSubview(labelHolder)
         navigationItem.setRightBarButton(UIBarButtonItem(customView: cartButton), animated: true)
     }
-
+    @objc func goToCart(sender: UIButton) {
+        if let next = self.storyboard?.instantiateViewController(withIdentifier: "CartController") as? CartController {
+            self.navigationController?.pushViewController(next, animated: true)
+        }
+        tableView.reloadData()
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groceries.count
@@ -33,9 +48,26 @@ class DetailController: UITableViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "groceryItemCell", for: indexPath) as? groceryItemCell {
             
             cell.cellSetup(with: groceries[indexPath.row])
+            cell.addButton.tag = indexPath.row
+            cell.addButton.addTarget(self, action: #selector(addItem), for: .touchUpInside)
             return cell
         }
         return UITableViewCell()
+    }
+    
+    @objc func addItem(sender: UIButton) {
+        var toggle = true
+        for i in myCart {
+            if i.label == groceries[sender.tag].label {
+                toggle = false
+                i.quantity += 1
+                i.subtotal = Double(i.quantity)*i.origPrice
+            }
+        }
+        if toggle == true {
+            myCart.append(cartItem(origPrice: groceries[sender.tag].price, category: self.title ?? "", label: groceries[sender.tag].label, quantity: 1))
+        }
+        tableView.reloadData()
     }
 }
 

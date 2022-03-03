@@ -71,9 +71,32 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cartItemCell", for: indexPath) as? cartItemCell {
             cell.cellSetup(with: sectionAofA[indexPath.section][indexPath.row])
+            var c = 0
+            for i in myCart {
+                if i.label == sectionAofA[indexPath.section][indexPath.row].label {
+                    cell.decrease.tag = c
+                    cell.increase.tag = c
+                }
+                c += 1
+            }
+            cell.decrease.addTarget(self, action: #selector(decreaseAction), for: .touchUpInside)
+            cell.increase.addTarget(self, action: #selector(increaseAction), for: .touchUpInside)
             return cell
         }
         return UITableViewCell()
+    }
+    @objc func decreaseAction(sender: UIButton) {
+        myCart[sender.tag].quantity -= 1
+        myCart[sender.tag].subtotal = Double(myCart[sender.tag].quantity)*myCart[sender.tag].origPrice
+        if myCart[sender.tag].quantity == 0 {
+            myCart.remove(at: sender.tag)
+        }
+        tableView.reloadData()
+    }
+    @objc func increaseAction(sender: UIButton) {
+        myCart[sender.tag].quantity += 1
+        myCart[sender.tag].subtotal = Double(myCart[sender.tag].quantity)*myCart[sender.tag].origPrice
+        tableView.reloadData()
     }
 }
 
@@ -82,20 +105,22 @@ class cartItem {
     var label: String
     var subtotal: Double
     var quantity: Int
+    var origPrice: Double
     
     
-    init(category: String, label: String, subtotal: Double, quantity: Int) {
+    init(origPrice: Double, category: String, label: String, quantity: Int) {
+        self.origPrice = origPrice
         self.category = category
         self.label = label
-        self.subtotal = subtotal
+        self.subtotal = origPrice*Double(quantity)
         self.quantity = quantity
     }
 }
 
-let myCart: [cartItem] = [
-    cartItem(category: "Grocery", label: "Tomatoes, per lb.", subtotal: 2.49, quantity: 2),
-     cartItem(category: "Grocery", label: "Bananas, per lb.", subtotal: 0.49, quantity: 2),
-     cartItem(category: "Grocery", label: "Milk", subtotal: 4.99, quantity: 1),
-    cartItem(category: "Movies", label: "Milk", subtotal: 4.99, quantity: 1),
-    cartItem(category: "Grocery", label: "Broccoli", subtotal: 1.99, quantity: 1)
+var myCart: [cartItem] = [
+    cartItem(origPrice: 2.49, category: "Grocery", label: "Tomatoes, per lb.", quantity: 2),
+     cartItem(origPrice: 0.49, category: "Grocery", label: "Bananas, per lb.", quantity: 2),
+    cartItem(origPrice: 4.99, category: "Grocery", label: "Milk", quantity: 1),
+    cartItem(origPrice: 1.99, category: "Movies", label: "Shawshank Redemption", quantity: 1),
+    cartItem(origPrice: 1.99, category: "Movies", label: "Titanic", quantity: 1)
 ]
