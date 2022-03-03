@@ -9,8 +9,10 @@ import UIKit
 
 class CartController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var increaseBtn: UIButton!
-    @IBOutlet weak var decreaseBtn: UIButton!
+    @IBOutlet weak var buyBtn: UIButton!
+    @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var emptyBtn: UIButton!
+    
     var titles: [String] = []
     var sectionCount: [Int] = []
     var sectionArr: [cartItem] = []
@@ -23,6 +25,14 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        var sum = 0.0
+        var quantSum = 0
+        for i in myCart {
+            sum += i.subtotal
+            quantSum += i.quantity
+        }
+        let total = Double(round(100 * sum) / 100)
+        totalLabel.text = "$\(total)              \(quantSum)"
 
     }
 
