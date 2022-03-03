@@ -49,14 +49,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         myIndex = indexPath.row
-        self.performSegue(withIdentifier: "showDetails", sender: self)
+        if navItems[myIndex].label == "Grocery" {
+            self.performSegue(withIdentifier: "goToGrocery", sender: self)
+        }
+        if navItems[myIndex].label == "Your Cart" {
+            self.performSegue(withIdentifier: "goToCart", sender: self)
+        }
 
     }
     
     /* Passing data through segue */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetails" {
+        if segue.identifier == "goToGrocery" {
             if let nextVC = segue.destination as? DetailController {
+                nextVC.passedIndex = myIndex
+                nextVC.title = navItems[myIndex].label
+            }
+        }
+        if segue.identifier == "goToCart" {
+            if let nextVC = segue.destination as? CartController {
                 nextVC.passedIndex = myIndex
                 nextVC.title = navItems[myIndex].label
             }
@@ -78,7 +89,7 @@ class navItem {
 /* Initializing category items */
 let navItems: [navItem] = [
     navItem(img: UIImage(named: "recent")!, label: "Recent Orders"),
-    navItem(img: UIImage(named: "cart")!, label: "Cart"),
+    navItem(img: UIImage(named: "cart")!, label: "Your Cart"),
     navItem(img: UIImage(named: "grocery")!, label: "Grocery"),
     navItem(img: UIImage(named: "clothing")!, label: "Clothing"),
     navItem(img: UIImage(named: "movies")!, label: "Movies"),
