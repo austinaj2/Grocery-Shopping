@@ -8,8 +8,7 @@
 import UIKit
 
      
-";¬k bfvecdwxsqaz       QWE-P[]\+
-_['0;   "@main
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
