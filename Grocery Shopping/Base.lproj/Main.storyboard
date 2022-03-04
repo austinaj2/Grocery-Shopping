@@ -132,10 +132,6 @@
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain"/>
-                                                    <connections>
-                                                        <action selector="increaseClicked:" destination="0Qp-1c-qhO" eventType="touchUpInside" id="Gjo-bk-aHR"/>
-                                                        <action selector="increaseClicked:" destination="i1E-L1-Hwi" eventType="touchUpInside" id="c3O-hv-AiK"/>
-                                                    </connections>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="increase" translatesAutoresizingMaskIntoConstraints="NO" id="tdz-09-Iy7">
                                                     <rect key="frame" x="389" y="2" width="25" height="26"/>
@@ -158,10 +154,6 @@
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title=""/>
-                                                    <connections>
-                                                        <action selector="decreaseClicked:" destination="0Qp-1c-qhO" eventType="touchUpInside" id="X9a-vV-Sgq"/>
-                                                        <action selector="decreaseClicked:" destination="i1E-L1-Hwi" eventType="touchUpInside" id="gLe-Ur-R7s"/>
-                                                    </connections>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="decrease" translatesAutoresizingMaskIntoConstraints="NO" id="h8w-u1-YNd">
                                                     <rect key="frame" x="324" y="2" width="25" height="26"/>
