@@ -17,6 +17,9 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var sectionCount: [Int] = []
     var sectionArr: [cartItem] = []
     var sectionAofA: [[cartItem]] = []
+    var sum = 0.0
+    var quantSum = 0
+    var totBuy = 0.0
     
     @IBOutlet weak var tableView: UITableView!
     var passedIndex = Int()
@@ -25,26 +28,58 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        var sum = 0.0
-        var quantSum = 0
+        totalLabel.text = total()
+        emptyBtn.tintColor = UIColor.red
+        buyBtn.tintColor = UIColor.systemGreen
+    }
+
+    @IBAction func buyAction(_ sender: Any) {
+        let s = total()
+        print(s)
+        let arr = s.split(separator: " ")
+        var tot = String()
+        for i in arr[0] {
+            if i != "$" {
+                tot += String(i)
+            }
+        }
+        totBuy = Double(tot)!
+        let alert = UIAlertController(title: "Confirm Purchase", message: "Your card will be charged $\(totBuy)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            print("Purchase cancelled.")
+        }))
+        alert.addAction(UIAlertAction(title: "Buy", style: .default, handler: { action in
+            print("Bought.")
+            self.buyIt(q: Int(arr[1])!)
+            myCart.removeAll()
+            self.navigationController?.popViewController(animated: true)
+        }))
+        present(alert, animated: true)
+        
+    }
+    
+    func buyIt(q: Int) {
+        if ordersItems.count < 10 {
+            ordersItems.append(orders(items: q, tot: totBuy, date: Date()))
+        }
+        else {
+            ordersItems.remove(at: 0)
+        }
+    }
+    
+    @IBAction func emptyAction(_ sender: Any) {
+        myCart.removeAll()
+    }
+    
+    func total() -> String {
         for i in myCart {
             sum += i.subtotal
             quantSum += i.quantity
         }
         let total = Double(round(100 * sum) / 100)
-        totalLabel.text = "$\(total)              \(quantSum)"
-
-    }
-
-    func setUpGroceryUI() {
-
-    }
-    
-    @IBAction func increaseClicked(_ sender: UIButton) {
-        
-    }
-    @IBAction func decreaseClicked(_ sender: UIButton) {
-        
+        let pass = "  $\(total)              \(quantSum)"
+        quantSum = 0; sum = 0.0
+        return pass
     }
     
     /* Populating table */
@@ -56,12 +91,15 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         return titles.count
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20.0
     }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return titles[section]
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
         for x in titles {
@@ -78,6 +116,7 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         return sectionCount[section]
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cartItemCell", for: indexPath) as? cartItemCell {
             cell.cellSetup(with: sectionAofA[indexPath.section][indexPath.row])
@@ -95,18 +134,35 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         return UITableViewCell()
     }
+    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if (sectionAofA[indexPath.section][indexPath.row].quantity) == 0 {
+//            sectionAofA.remove(at: [indexPath.section][indexPath.row])
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
+//        }
+//    }
+    
     @objc func decreaseAction(sender: UIButton) {
         myCart[sender.tag].quantity -= 1
-        myCart[sender.tag].subtotal = Double(myCart[sender.tag].quantity)*myCart[sender.tag].origPrice
+        let sub = Double(myCart[sender.tag].quantity)*myCart[sender.tag].origPrice
+        myCart[sender.tag].subtotal = Double(round(100 * sub) / 100)
         if myCart[sender.tag].quantity == 0 {
+            tableView.beginUpdates()
             myCart.remove(at: sender.tag)
+            tableView.reloadData()
+            tableView.endUpdates()
         }
         tableView.reloadData()
+        totalLabel.text = total()
+        
     }
+    
     @objc func increaseAction(sender: UIButton) {
         myCart[sender.tag].quantity += 1
-        myCart[sender.tag].subtotal = Double(myCart[sender.tag].quantity)*myCart[sender.tag].origPrice
+        let sub = Double(myCart[sender.tag].quantity)*myCart[sender.tag].origPrice
+        myCart[sender.tag].subtotal = Double(round(100 * sub) / 100)
         tableView.reloadData()
+        totalLabel.text = total()
     }
 }
 
@@ -122,8 +178,18 @@ class cartItem {
         self.origPrice = origPrice
         self.category = category
         self.label = label
-        self.subtotal = origPrice*Double(quantity)
+        let t = origPrice*Double(quantity)
+        let total = Double(round(100 * t) / 100)
+        self.subtotal = total
         self.quantity = quantity
+    }
+    
+    init() {
+        self.origPrice = 0
+        self.category = ""
+        self.label = ""
+        self.subtotal = 0.0
+        self.quantity = 0
     }
 }
 

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		846D832927CEBC51009AB5AB /* CartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D832827CEBC51009AB5AB /* CartController.swift */; };
 		8478C1BC27C8A1D200AA889B /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C1BB27C8A1D200AA889B /* DetailController.swift */; };
+		915D473F27D32E5E0023475A /* RecentTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915D473E27D32E5E0023475A /* RecentTVC.swift */; };
+		915D474127D32FCE0023475A /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915D474027D32FCE0023475A /* OrderCell.swift */; };
 		915FB97927CC859600601301 /* groceryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FB97827CC859600601301 /* groceryItemCell.swift */; };
 		915FB97B27CDC36D00601301 /* cartItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FB97A27CDC36D00601301 /* cartItemCell.swift */; };
 		91870F6027C838FE00A0B942 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91870F5F27C838FE00A0B942 /* AppDelegate.swift */; };
@@ -43,6 +45,8 @@
 /* Begin PBXFileReference section */
 		846D832827CEBC51009AB5AB /* CartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartController.swift; sourceTree = "<group>"; };
 		8478C1BB27C8A1D200AA889B /* DetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
+		915D473E27D32E5E0023475A /* RecentTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTVC.swift; sourceTree = "<group>"; };
+		915D474027D32FCE0023475A /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 		915FB97827CC859600601301 /* groceryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groceryItemCell.swift; sourceTree = "<group>"; };
 		915FB97A27CDC36D00601301 /* cartItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cartItemCell.swift; sourceTree = "<group>"; };
 		91870F5C27C838FE00A0B942 /* Grocery Shopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery Shopping.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,7 +119,9 @@
 				91870F6327C838FE00A0B942 /* ViewController.swift */,
 				846D832827CEBC51009AB5AB /* CartController.swift */,
 				915FB97A27CDC36D00601301 /* cartItemCell.swift */,
+				915D474027D32FCE0023475A /* OrderCell.swift */,
 				915FB97827CC859600601301 /* groceryItemCell.swift */,
+				915D473E27D32E5E0023475A /* RecentTVC.swift */,
 				91870F6527C838FE00A0B942 /* Main.storyboard */,
 				8478C1BB27C8A1D200AA889B /* DetailController.swift */,
 				91870F6827C838FF00A0B942 /* Assets.xcassets */,
@@ -275,6 +281,8 @@
 			files = (
 				91870F6427C838FE00A0B942 /* ViewController.swift in Sources */,
 				91870F9027C8554200A0B942 /* navItemCollectionViewCell.swift in Sources */,
+				915D474127D32FCE0023475A /* OrderCell.swift in Sources */,
+				915D473F27D32E5E0023475A /* RecentTVC.swift in Sources */,
 				915FB97927CC859600601301 /* groceryItemCell.swift in Sources */,
 				91870F6027C838FE00A0B942 /* AppDelegate.swift in Sources */,
 				91870F6227C838FE00A0B942 /* SceneDelegate.swift in Sources */,

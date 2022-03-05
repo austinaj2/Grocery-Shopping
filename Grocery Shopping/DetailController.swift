@@ -11,6 +11,7 @@ class DetailController: UITableViewController {
     
     @IBOutlet weak var cartBarButton: UIBarButtonItem!
     // let cartButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    let labelHolder = UILabel(frame: CGRect(x: 5, y: 0, width: 40, height: 40))
     var passedIndex = Int()
     
     
@@ -25,7 +26,6 @@ class DetailController: UITableViewController {
         cartButton.addTarget(self, action: #selector(goToCart), for: .touchUpInside)
         cartButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         var cartLabel = myCart.count
-        let labelHolder = UILabel(frame: CGRect(x: 5, y: 0, width: 40, height: 40))
         labelHolder.text = "\(cartLabel)"
         labelHolder.textAlignment = .center
         labelHolder.backgroundColor = UIColor.clear
@@ -35,6 +35,7 @@ class DetailController: UITableViewController {
     }
     @objc func goToCart(sender: UIButton) {
         if let next = self.storyboard?.instantiateViewController(withIdentifier: "CartController") as? CartController {
+            next.title = "Your Cart"
             self.navigationController?.pushViewController(next, animated: true)
         }
         tableView.reloadData()
@@ -67,6 +68,7 @@ class DetailController: UITableViewController {
         if toggle == true {
             myCart.append(cartItem(origPrice: groceries[sender.tag].price, category: self.title ?? "", label: groceries[sender.tag].label, quantity: 1))
         }
+        labelHolder.text = "\(myCart.count)"
         tableView.reloadData()
     }
 }
@@ -78,7 +80,6 @@ class groceryItem {
     var price: Double
     var descrip: String
     
-    
     init(img: UIImage, label: String, price: Double, descrip: String) {
         self.img = img
         self.label = label
@@ -88,7 +89,6 @@ class groceryItem {
 }
 
 /* Initializing items */
-
 let groceries: [groceryItem] = [
     groceryItem(img: UIImage(named: "bananas")!, label: "Bananas, per lb.", price: 0.49, descrip: "Very durable."),
     groceryItem(img: UIImage(named: "tomatoes")!, label: "Tomatoes, per lb.", price: 2.45, descrip: "On the vine."),

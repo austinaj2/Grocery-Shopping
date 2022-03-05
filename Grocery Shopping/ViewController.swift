@@ -55,6 +55,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if navItems[myIndex].label == "Your Cart" {
             self.performSegue(withIdentifier: "goToCart", sender: self)
         }
+        if navItems[myIndex].label == "Recent Orders" {
+            self.performSegue(withIdentifier: "goToRecent", sender: self)
+        }
 
     }
     
@@ -72,6 +75,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 nextVC.title = navItems[myIndex].label
             }
         }
+        if segue.identifier == "goToRecent" {
+            if let nextVC = segue.destination as? RecentTVC {
+                nextVC.title = navItems[myIndex].label
+            }
+        }
     }
 }
 
@@ -86,6 +94,26 @@ class navItem {
     }
 }
 
+class orders {
+    var items: Int
+    var tot: Double
+    var date: Date
+    var label: String
+    
+    init(items: Int, tot: Double, date: Date) {
+        self.items = items
+        self.date = date
+        self.tot = tot
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        formatter.dateStyle = .short
+        let dateString = formatter.string(from: date)
+        let s = "\(items) items ($\(tot)) --- \(dateString)"
+        self.label = s
+    }
+}
+
+
 /* Initializing category items */
 let navItems: [navItem] = [
     navItem(img: UIImage(named: "recent")!, label: "Recent Orders"),
@@ -98,5 +126,12 @@ let navItems: [navItem] = [
     navItem(img: UIImage(named: "books")!, label: "Books"),
     navItem(img: UIImage(named: "appliances")!, label: "Appliances"),
     navItem(img: UIImage(named: "toys")!, label: "Toys")
+]
+
+var ordersItems: [orders] = [
+    orders(items: 8, tot: 67.12, date: Date()),
+    orders(items: 7, tot: 54.23, date: Date()),
+    orders(items: 13, tot: 300.27, date: Date()),
+    orders(items: 3, tot: 13.12, date: Date())
 ]
 
