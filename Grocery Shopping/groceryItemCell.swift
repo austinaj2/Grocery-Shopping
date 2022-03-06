@@ -29,11 +29,23 @@ class groceryItemCell: UITableViewCell {
     
     
     
-    func cellSetup(with grocery: groceryItem) {
+    func groceryCellSetup(with grocery: groceryItem) {
         gPrice.text = "$\(grocery.price)"
         gDescrip.text = grocery.descrip
         groceryName.text = grocery.label
         gImage.image = grocery.img
+    }
+    func gardenCellSetup(with g: gardenItem) {
+        gPrice.text = "$\(g.price)"
+        gDescrip.text = g.descrip
+        groceryName.text = g.label
+        gImage.image = g.img
+    }
+    func movieCellSetup(with m: movieItem) {
+        gPrice.text = "$\(m.price)"
+        gDescrip.text = m.descrip
+        groceryName.text = m.label
+        gImage.image = m.img
     }
     
 }

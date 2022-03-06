@@ -9,10 +9,12 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    @IBOutlet weak var manager: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var bgImageView: UIImageView!
     let bgView = UIImageView(image: UIImage(named: "background"))
     var myIndex = 0
+    var impImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         setUpUI()
     }
     
+    @IBAction func managerClicked(_ sender: Any) {
+        self.performSegue(withIdentifier: "goToNewTVC", sender: self)
+    }
+    
+    
     /* Setting up UI, Navigation layout*/
     func setUpUI() {
         navigationItem.titleView = UIImageView(image: UIImage(named: "AppLogo"))
@@ -28,6 +35,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let layout =  self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: 125, height: 125)
         layout.sectionInset = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+        collectionView.reloadData()
     }
     
     /* Populatiung collection view */
@@ -52,6 +60,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if navItems[myIndex].label == "Grocery" {
             self.performSegue(withIdentifier: "goToGrocery", sender: self)
         }
+        if navItems[myIndex].label == "Garden" {
+            self.performSegue(withIdentifier: "goToGrocery", sender: self)
+        }
+        if navItems[myIndex].label == "Movies" {
+            self.performSegue(withIdentifier: "goToGrocery", sender: self)
+        }
         if navItems[myIndex].label == "Your Cart" {
             self.performSegue(withIdentifier: "goToCart", sender: self)
         }
@@ -73,6 +87,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             if let nextVC = segue.destination as? CartController {
                 nextVC.passedIndex = myIndex
                 nextVC.title = navItems[myIndex].label
+            }
+        }
+        if segue.identifier == "goToNewTVC" {
+            if let nextVC = segue.destination as? NewTVC {
+                nextVC.title = "Manager"
             }
         }
         if segue.identifier == "goToRecent" {
@@ -115,7 +134,7 @@ class orders {
 
 
 /* Initializing category items */
-let navItems: [navItem] = [
+var navItems: [navItem] = [
     navItem(img: UIImage(named: "recent")!, label: "Recent Orders"),
     navItem(img: UIImage(named: "cart")!, label: "Your Cart"),
     navItem(img: UIImage(named: "grocery")!, label: "Grocery"),

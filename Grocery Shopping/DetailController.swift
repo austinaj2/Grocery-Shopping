@@ -33,6 +33,7 @@ class DetailController: UITableViewController {
         cartButton.addSubview(labelHolder)
         navigationItem.setRightBarButton(UIBarButtonItem(customView: cartButton), animated: true)
     }
+    
     @objc func goToCart(sender: UIButton) {
         if let next = self.storyboard?.instantiateViewController(withIdentifier: "CartController") as? CartController {
             next.title = "Your Cart"
@@ -42,16 +43,42 @@ class DetailController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groceries.count
+        if self.title == "Grocery" {
+            return groceries.count
+        }
+        if self.title == "Movies" {
+            return movies.count
+        }
+        if self.title == "Garden" {
+            return gardening.count
+        }
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "groceryItemCell", for: indexPath) as? groceryItemCell {
-            
-            cell.cellSetup(with: groceries[indexPath.row])
-            cell.addButton.tag = indexPath.row
-            cell.addButton.addTarget(self, action: #selector(addItem), for: .touchUpInside)
-            return cell
+        if self.title == "Grocery" {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "groceryItemCell", for: indexPath) as? groceryItemCell {
+                cell.groceryCellSetup(with: groceries[indexPath.row])
+                cell.addButton.tag = indexPath.row
+                cell.addButton.addTarget(self, action: #selector(addItem), for: .touchUpInside)
+                return cell
+            }
+        }
+        if self.title == "Movies" {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "groceryItemCell", for: indexPath) as? groceryItemCell {
+                cell.movieCellSetup(with: movies[indexPath.row])
+                cell.addButton.tag = indexPath.row
+                cell.addButton.addTarget(self, action: #selector(addItem), for: .touchUpInside)
+                return cell
+            }
+        }
+        if self.title == "Garden" {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "groceryItemCell", for: indexPath) as? groceryItemCell {
+                cell.gardenCellSetup(with: gardening[indexPath.row])
+                cell.addButton.tag = indexPath.row
+                cell.addButton.addTarget(self, action: #selector(addItem), for: .touchUpInside)
+                return cell
+            }
         }
         return UITableViewCell()
     }
@@ -59,14 +86,38 @@ class DetailController: UITableViewController {
     @objc func addItem(sender: UIButton) {
         var toggle = true
         for i in myCart {
-            if i.label == groceries[sender.tag].label {
-                toggle = false
-                i.quantity += 1
-                i.subtotal = Double(i.quantity)*i.origPrice
+            if self.title == "Grocery" {
+                if i.label == groceries[sender.tag].label {
+                    toggle = false
+                    i.quantity += 1
+                    i.subtotal = Double(i.quantity)*i.origPrice
+                }
+            }
+            if self.title == "Garden" {
+                if i.label == gardening[sender.tag].label {
+                    toggle = false
+                    i.quantity += 1
+                    i.subtotal = Double(i.quantity)*i.origPrice
+                }
+            }
+            if self.title == "Movies" {
+                if i.label == movies[sender.tag].label {
+                    toggle = false
+                    i.quantity += 1
+                    i.subtotal = Double(i.quantity)*i.origPrice
+                }
             }
         }
         if toggle == true {
-            myCart.append(cartItem(origPrice: groceries[sender.tag].price, category: self.title ?? "", label: groceries[sender.tag].label, quantity: 1))
+            if self.title == "Grocery" {
+                myCart.append(cartItem(origPrice: groceries[sender.tag].price, category: self.title ?? "", label: groceries[sender.tag].label, quantity: 1))
+            }
+            if self.title == "Garden" {
+                myCart.append(cartItem(origPrice: gardening[sender.tag].price, category: self.title ?? "", label: gardening[sender.tag].label, quantity: 1))
+            }
+            if self.title == "Movies" {
+                myCart.append(cartItem(origPrice: movies[sender.tag].price, category: self.title ?? "", label: movies[sender.tag].label, quantity: 1))
+            }
         }
         labelHolder.text = "\(myCart.count)"
         tableView.reloadData()
@@ -88,8 +139,37 @@ class groceryItem {
     }
 }
 
+class gardenItem {
+    var img: UIImage
+    var label: String
+    var price: Double
+    var descrip: String
+    
+    init(img: UIImage, label: String, price: Double, descrip: String) {
+        self.img = img
+        self.label = label
+        self.price = price
+        self.descrip = descrip
+    }
+}
+
+class movieItem {
+    var img: UIImage
+    var label: String
+    var price: Double
+    var descrip: String
+    
+    init(img: UIImage, label: String, price: Double, descrip: String) {
+        self.img = img
+        self.label = label
+        self.price = price
+        self.descrip = descrip
+    }
+}
+
+
 /* Initializing items */
-let groceries: [groceryItem] = [
+var groceries: [groceryItem] = [
     groceryItem(img: UIImage(named: "bananas")!, label: "Bananas, per lb.", price: 0.49, descrip: "Very durable."),
     groceryItem(img: UIImage(named: "tomatoes")!, label: "Tomatoes, per lb.", price: 2.45, descrip: "On the vine."),
     groceryItem(img: UIImage(named: "gala")!, label: "Apples, per lb.", price: 1.47, descrip: "Gala apples."),
@@ -98,4 +178,19 @@ let groceries: [groceryItem] = [
     groceryItem(img: UIImage(named: "bread")!, label: "Bread", price: 2.32, descrip: "Whole-wheat."),
     groceryItem(img: UIImage(named: "milk")!, label: "Milk", price: 4.99, descrip: "One box, organic."),
     groceryItem(img: UIImage(named: "eggs")!, label: "Eggs", price: 0.98, descrip: "By the dozen."),
+]
+
+var movies: [movieItem] = [
+    movieItem(img: UIImage(named: "shawshank")!, label: "Shawshank Redemption", price: 0.49, descrip: "Great plot."),
+    movieItem(img: UIImage(named: "lord-of-the-rings")!, label: "Lord of the Rings", price: 2.45, descrip: "Bron need 5 rings."),
+    movieItem(img: UIImage(named: "godfather")!, label: "Godfather", price: 1.47, descrip: "Longest movie ever...")
+]
+
+var gardening: [gardenItem] = [
+    gardenItem(img: UIImage(named: "shovel")!, label: "Shovel", price: 10.49, descrip: "Very durable."),
+    gardenItem(img: UIImage(named: "tomato-plant")!, label: "Tomato plant", price: 2.45, descrip: "On the vine."),
+    gardenItem(img: UIImage(named: "mower")!, label: "Mower", price: 1.47, descrip: "Very sturdy."),
+    gardenItem(img: UIImage(named: "garden-soil")!, label: "Garden Soil", price: 20.19, descrip: "Fertilized"),
+    gardenItem(img: UIImage(named: "fruit-tree")!, label: "Fruit tree", price: 1.99, descrip: "A bunch."),
+    gardenItem(img: UIImage(named: "leaves-rake")!, label: "Rake", price: 14.49, descrip: "For leaves.")
 ]

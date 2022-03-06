@@ -12,6 +12,7 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var buyBtn: UIButton!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var emptyBtn: UIButton!
+    var ip = IndexPath()
     
     var titles: [String] = []
     var sectionCount: [Int] = []
@@ -44,11 +45,11 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
         totBuy = Double(tot)!
-        let alert = UIAlertController(title: "Confirm Purchase", message: "Your card will be charged $\(totBuy)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Confirm Purchase", message: "Your card will be charged $\(totBuy).", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
             print("Purchase cancelled.")
         }))
-        alert.addAction(UIAlertAction(title: "Buy", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: "Place Order", style: .default, handler: { action in
             print("Bought.")
             self.buyIt(q: Int(arr[1])!)
             myCart.removeAll()
@@ -68,7 +69,16 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func emptyAction(_ sender: Any) {
-        myCart.removeAll()
+        let alert = UIAlertController(title: "Emptying cart", message: "Are you sure you want to emnpty your cart?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            print("Purchase cancelled.")
+        }))
+        alert.addAction(UIAlertAction(title: "Empty", style: .default, handler: { action in
+            print("Emptied.")
+            myCart.removeAll()
+            self.navigationController?.popViewController(animated: true)
+        }))
+        present(alert, animated: true)
     }
     
     func total() -> String {
@@ -120,6 +130,7 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cartItemCell", for: indexPath) as? cartItemCell {
             cell.cellSetup(with: sectionAofA[indexPath.section][indexPath.row])
+            ip = indexPath
             var c = 0
             for i in myCart {
                 if i.label == sectionAofA[indexPath.section][indexPath.row].label {
@@ -148,9 +159,15 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
         myCart[sender.tag].subtotal = Double(round(100 * sub) / 100)
         if myCart[sender.tag].quantity == 0 {
             tableView.beginUpdates()
+            myCart[sender.tag].label = "----------"
             myCart.remove(at: sender.tag)
             tableView.reloadData()
             tableView.endUpdates()
+            let alert = UIAlertController(title: "Item Deleted!", message: "Please do not click again, cart will update on return.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { action in
+                print("Item deleted.")
+            }))
+            present(alert, animated: true)
         }
         tableView.reloadData()
         totalLabel.text = total()
