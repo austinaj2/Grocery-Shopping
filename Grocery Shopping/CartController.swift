@@ -53,7 +53,9 @@ class CartController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("Bought.")
             self.buyIt(q: Int(arr[1])!)
             myCart.removeAll()
-            self.navigationController?.popViewController(animated: true)
+            if  self.navigationController?.popViewController(animated: true)?.title != "ShopMe" {
+                self.navigationController?.popViewController(animated: true)
+            }
         }))
         present(alert, animated: true)
         

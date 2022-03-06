@@ -18,9 +18,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "ShopMe"
         collectionView.dataSource = self
         collectionView.delegate = self
+        print("------")
+        print(self.title)
+        print("------")
         setUpUI()
+        
     }
     
     @IBAction func managerClicked(_ sender: Any) {
